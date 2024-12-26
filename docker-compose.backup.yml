@@ -1,0 +1,10 @@
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app # Mount the current directory to /app in the container
+      - /app/node_modules # Prevents node_modules from being mounted
+    environment:
+      - PORT=3000

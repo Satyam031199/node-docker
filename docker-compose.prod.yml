@@ -1,0 +1,10 @@
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        - NODE_ENV=production
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    command: npm start
