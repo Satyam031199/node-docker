@@ -3,10 +3,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoURI = "mongodb://admin:admin@172.25.0.2:27017/?authSource=admin";
 
 mongoose
-  .connect(mongoURI)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
@@ -17,4 +16,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
-
