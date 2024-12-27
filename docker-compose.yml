@@ -2,13 +2,13 @@ services:
   node-app:
     build: .
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
     environment:
-      - PORT=3000 
+      - PORT=${PORT}" 
   mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT}:${MONGO_PORT}"
     volumes:
       - mongo-db:/data/db # Named volume for persisting data
 volumes:
