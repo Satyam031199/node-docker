@@ -5,6 +5,8 @@ const postRouter = require("./routes/post.route");
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 const MAX_RETRIES = 5; 
 let retryCount = 0;
 
