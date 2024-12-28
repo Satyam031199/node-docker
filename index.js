@@ -2,10 +2,27 @@ const express = require("express");
 const mongoose = require("mongoose");
 const postRouter = require("./routes/post.route");
 const authRouter = require("./routes/auth.route");
+const redis = require("redis");
+let redisStore = require("connect-redis")(session);
+let redisClient = redis.createClient({
+  host: process.env.REDIS_HOST || "redis",
+  port: process.env.REDIS_PORT,
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(session({
+  store: new redisStore({ client: redisClient }),
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 30000,
+  },
+}));
 app.use(express.json());
 
 const MAX_RETRIES = 5; 
