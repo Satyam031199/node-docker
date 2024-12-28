@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 exports.signUp = async (req, res) => {
   try {
     const { username, password } = req.body;
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ username });
     if (user) return res.status(400).json({ message: "User already exists" });
     const hashedPassword = await bcrypt.hash(password, 10);
     user = new User({
@@ -20,11 +20,11 @@ exports.signUp = async (req, res) => {
 
 exports.signIn = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid email or password" });
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) return res.status(400).json({ message: "Invalid username or password" });
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
+    if (!isMatch) return res.status(400).json({ message: "Invalid username or password" });
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
