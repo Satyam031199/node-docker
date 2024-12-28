@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const postRouter = require("./routes/post.route");
+const authRouter = require("./routes/auth.route");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ const startServer = () => {
 };
 
 app.use("/api/v1/posts", postRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello!" });
